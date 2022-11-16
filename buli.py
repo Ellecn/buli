@@ -25,7 +25,7 @@ with urllib.request.urlopen(url) as response:
     json_obj = json.load(response)
     position = 1
     for team in json_obj:
-        table.append(Team(team['TeamName'], team['Points'], position)) # DAS WURDE GEÄNDERT
+        table.append(Team(team['TeamName'], team['Points'], position))
         position += 1
 
 for i in range(table[0].points, table[len(table)-1].points-1, -1):
