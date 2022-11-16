@@ -8,11 +8,12 @@ parser.add_argument("-s", "--season", default="2022", help="Season: '2022', '202
 config = vars(parser.parse_args())
 
 class Team:
-    def __init__(self, name, points):
+    def __init__(self, name, points, position):
         self.name = name
         self.points = points
+        self.position = position
     def __str__(self):
-        return self.name
+        return "{} ({}.)".format(self.name, self.position)
 
 def getTeamsWithPoints(points):
     return list(filter(lambda t: t.points == points, table))
@@ -22,8 +23,10 @@ table = []
 url = "https://www.openligadb.de/api/getbltable/{}/{}".format(config['league'], config['season'])
 with urllib.request.urlopen(url) as response:
     json_obj = json.load(response)
+    position = 1
     for team in json_obj:
-        table.append(Team(team['TeamName'], team['Points']))
+        table.append(Team(team['TeamName'], team['Points'], position)) # DAS WURDE GEÄNDERT
+        position += 1
 
 for i in range(table[0].points, table[len(table)-1].points-1, -1):
     teamsString = " | ".join([str(elem) for elem in getTeamsWithPoints(i)])
