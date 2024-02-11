@@ -4,7 +4,7 @@ import json
 
 parser = argparse.ArgumentParser(description="Buli - Football table command line tool", formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument("-l", "--league", default="bl1", help="League: 'bl1', 'bl2', 'bl3'")
-parser.add_argument("-s", "--season", default="2022", help="Season: '2022', '2021', ...")
+parser.add_argument("-s", "--season", default="2023", help="Season: '2022', '2021', ...")
 config = vars(parser.parse_args())
 
 class Team:
@@ -25,7 +25,7 @@ with urllib.request.urlopen(url) as response:
     json_obj = json.load(response)
     position = 1
     for team in json_obj:
-        table.append(Team(team['TeamName'], team['Points'], position))
+        table.append(Team(team['teamName'], team['points'], position))
         position += 1
 
 for i in range(table[0].points, table[len(table)-1].points-1, -1):
